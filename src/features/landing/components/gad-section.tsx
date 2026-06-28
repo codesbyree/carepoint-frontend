@@ -27,7 +27,7 @@ export function GADSection() {
           </SectionHeaderDescription>
         </SectionHeader>
 
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 rounded-xl border border-border bg-card p-5 shadow-xl">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 rounded-xl border border-border bg-white p-5 shadow-xl">
           <ul className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
             <li className="space-y-1 rounded-md border border-olive-200 bg-olive-50 px-4 py-2">
               <p className="text-xl font-semibold text-teal-900 md:text-2xl xl:text-3xl">

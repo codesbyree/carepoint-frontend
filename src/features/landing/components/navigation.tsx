@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 export function Navigation() {
   return (
-    <header className="fixed top-0 left-0 z-50 w-full">
+    <header className="fixed top-0 left-0 z-50 hidden w-full">
       <div className="mx-auto grid w-full max-w-380 grid-cols-2 gap-2.5 p-6 py-6 md:px-8 xl:px-16 2xl:px-0">
         <div className="flex w-full items-center justify-between">
           <p className="text-lg font-semibold text-teal-900">

@@ -6,18 +6,17 @@ import {
   SectionHeaderLabel,
 } from "./section-header"
 import { SectionSafeWrapper } from "./section-safe-wrapper"
+import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Badge } from "@/components/ui/badge"
 
 import DekoDesktop from "@/assets/landing/tools section deco desktop.svg"
-
-import AnxietyCover from '@/assets/landing/anxiety cover.jpg'
-import DepressionCover from '@/assets/landing/anxiety cover.jpg'
-import StressCover from '@/assets/landing/anxiety cover.jpg'
-import AnxietyCover from '@/assets/landing/anxiety cover.jpg'
-import AnxietyCover from '@/assets/landing/anxiety cover.jpg'
-import AnxietyCover from '@/assets/landing/anxiety cover.jpg'
-
-
+import AnxietyCover from "@/assets/landing/anxiety cover.jpg"
+import DepressionCover from "@/assets/landing/depression cover.jpg"
+import StressCover from "@/assets/landing/stress cover.jpg"
+import WHOCover from "@/assets/landing/wellbeing cover.jpg"
+import PSQICover from "@/assets/landing/sleep cover.jpg"
+import MBICover from "@/assets/landing/burnout cover.jpg"
+import { Button } from "@/components/ui/button"
 
 const screenings = {
   id: [
@@ -25,31 +24,43 @@ const screenings = {
       status: "Aktif sekarang",
       title: "GAD-7",
       description: "Skrining kecemasan umum. 7 Pertanyaan.",
+      image: AnxietyCover,
+      active: true,
     },
     {
       status: "Segera hadir",
       title: "PHQ-9",
       description: "Skrining gejala depresi.",
+      image: DepressionCover,
+      active: false,
     },
     {
       status: "Segera hadir",
       title: "PSS-10",
       description: "Pemeriksaan tingkat stres yang dirasakan.",
+      image: StressCover,
+      active: false,
     },
     {
       status: "Segera hadir",
       title: "WHO-5",
       description: "Indeks kesejahteraan keseluruhan.",
+      image: WHOCover,
+      active: false,
     },
     {
       status: "Segera hadir",
       title: "PSQI",
       description: "Penilaian kualitas tidur.",
+      image: PSQICover,
+      active: false,
     },
     {
       status: "Segera hadir",
       title: "MBI Student",
       description: "Pemeriksaan burnout akademik.",
+      image: MBICover,
+      active: false,
     },
   ],
   en: [
@@ -57,31 +68,43 @@ const screenings = {
       status: "Live now",
       title: "GAD-7",
       description: "Generalized anxiety screening. 7 Questions.",
+      image: AnxietyCover,
+      active: true,
     },
     {
       status: "Coming soon",
       title: "PHQ-9",
       description: "Depression symptom screening.",
+      image: DepressionCover,
+      active: false,
     },
     {
       status: "Coming soon",
       title: "PSS-10",
       description: "Perceived stress levels check.",
+      image: StressCover,
+      active: false,
     },
     {
       status: "Coming soon",
       title: "WHO-5",
       description: "Overall wellbeing index.",
+      image: WHOCover,
+      active: false,
     },
     {
       status: "Coming soon",
       title: "PSQI",
       description: "Sleep quality assessment.",
+      image: PSQICover,
+      active: false,
     },
     {
       status: "Coming soon",
       title: "MBI Student",
       description: "Academic burnout check.",
+      image: MBICover,
+      active: false,
     },
   ],
 }
@@ -103,12 +126,31 @@ export function ScreeningsSection() {
           </SectionHeaderDescription>
         </SectionHeader>
 
-        <div className="relative z-10 grid w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        <div className="relative z-10 grid w-full grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {screeningCards.map((s) => (
-            <article key={s.title}>
-              <Badge>{s.status}</Badge>
-              <h3>{s.title}</h3>
-              <p>{s.description}</p>
+            <article
+              key={s.title}
+              className="group overflow-hidden rounded-3xl shadow-sm"
+            >
+              <AspectRatio ratio={16 / 9} className="">
+                <img
+                  src={s.image}
+                  alt=""
+                  className="transition-transform group-hover:scale-105"
+                />
+              </AspectRatio>
+
+              <div className="border-boder relative z-10 -mt-6 space-y-4 rounded-tl-2xl rounded-tr-2xl border bg-white p-5">
+                <Badge variant={s.active ? "default" : "outline"}>
+                  {s.status}
+                </Badge>
+                <h3 className="text-xl font-medium text-teal-900">{s.title}</h3>
+                <p className="text-olive-600">{s.description}</p>
+
+                <Button disabled={!s.active} variant="outline">
+                  Take the test
+                </Button>
+              </div>
             </article>
           ))}
         </div>
@@ -116,7 +158,7 @@ export function ScreeningsSection() {
         <div className="absolute bottom-0 left-0 h-full w-full">
           <img
             src={DekoDesktop}
-            className="h-full w-full object-contain object-bottom"
+            className="h-full w-full object-cover object-top"
             alt=""
           />
         </div>
