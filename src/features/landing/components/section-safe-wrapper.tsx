@@ -7,7 +7,7 @@ export function SectionSafeWrapper(props: ComponentPropsWithoutRef<"div">) {
   return (
     <div
       className={cn(
-        "mx-auto w-full max-w-380 px-6 py-20 md:px-8 xl:px-16",
+        "mx-auto w-full max-w-380 px-6 py-20 md:px-8 xl:px-16 2xl:px-0",
         className
       )}
       {...rest}

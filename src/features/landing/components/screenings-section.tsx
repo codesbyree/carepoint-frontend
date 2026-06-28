@@ -117,7 +117,7 @@ export function ScreeningsSection() {
   const screeningCards = screenings[language]
 
   return (
-    <section id="gad-section" className="bg-olive-100">
+    <section id="screenings-section" className="relative bg-olive-100">
       <SectionSafeWrapper className="relative flex flex-col gap-12">
         <SectionHeader className="relative z-10">
           <SectionHeaderLabel>
@@ -165,15 +165,15 @@ export function ScreeningsSection() {
             </article>
           ))}
         </div>
-
-        <div className="absolute bottom-0 left-0 h-full w-full">
-          <img
-            src={DekoDesktop}
-            className="h-full w-full object-cover object-top"
-            alt=""
-          />
-        </div>
       </SectionSafeWrapper>
+
+      <div className="absolute bottom-0 left-0 h-full w-full">
+        <img
+          src={DekoDesktop}
+          className="h-full w-full object-cover object-top"
+          alt=""
+        />
+      </div>
     </section>
   )
 }

@@ -1,7 +1,4 @@
-import { Languages } from "@hugeicons/core-free-icons"
-import { HugeiconsIcon } from "@hugeicons/react"
-
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import LanguageSwitcher from "@/components/shared/language-switcher"
 

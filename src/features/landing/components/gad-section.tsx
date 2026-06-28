@@ -17,7 +17,7 @@ export function GADSection() {
   const isEnglish = language === "en"
 
   return (
-    <section id="gad-section" className="bg-olive-100">
+    <section id="featured-screening-section" className="bg-olive-100">
       <SectionSafeWrapper className="flex flex-col gap-12">
         <SectionHeader>
           <SectionHeaderLabel>

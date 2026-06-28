@@ -66,7 +66,7 @@ export function StepsSection() {
   const t = content[language]
 
   return (
-    <section id="how-it-works" className="bg-white">
+    <section id="how-it-works" className="bg-olive-100">
       <SectionSafeWrapper className="grid grid-cols-1 gap-12 lg:grid-cols-2 xl:gap-17">
         <div className="row-start-2 w-full overflow-hidden xl:row-start-1">
           <img
