@@ -67,7 +67,7 @@ export function FooterSection() {
             </div>
 
             <div className="space-y-6">
-              <p className="text-olive-50">{isEnglish ? "Account" : "Akun"}</p>
+              <p className="text-olive-50">{isEnglish ? "ACCOUNT" : "AKUN"}</p>
 
               <ul className="flex flex-col gap-4">
                 <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">

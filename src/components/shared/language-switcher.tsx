@@ -13,7 +13,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Languages } from "@hugeicons/core-free-icons"
 import { useShallow } from "zustand/shallow"
 
-export default function LanguageSwitcher() {
+export function LanguageSwitcher() {
   const { language, changeLanguage } = useLanguageStore(
     useShallow((s) => ({
       language: s.language,
