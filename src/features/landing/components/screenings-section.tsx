@@ -148,7 +148,7 @@ export function ScreeningsSection() {
                 <p className="text-olive-600">{s.description}</p>
 
                 <Button disabled={!s.active} variant="outline">
-                  Take the test
+                  {language === "en" ? "Take the test" : "Ambil tes"}
                 </Button>
               </div>
             </article>
