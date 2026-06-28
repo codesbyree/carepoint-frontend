@@ -10,6 +10,7 @@ import HeroImageMobile from "@/assets/landing/hero image mobile.jpg"
 import { SectionSafeWrapper } from "./section-safe-wrapper"
 
 import { useLanguageStore } from "@/stores/use-language.store"
+import { cn } from "@/lib/utils"
 
 export function HeroSection() {
   const language = useLanguageStore((s) => s.language)
@@ -44,7 +45,12 @@ export function HeroSection() {
                 )}
               </h1>
 
-              <p className="font-medium text-olive-600 md:max-w-90">
+              <p
+                className={cn(
+                  "font-medium text-olive-600 md:max-w-90",
+                  !isEnglish && "md:max-w-125"
+                )}
+              >
                 {isEnglish
                   ? "Nusa Putra University’s free mental health screening platform - a safe, confidential place for all students to check in on their"
                   : "Platform skrining kesehatan mental gratis Universitas Nusa Putra - ruang aman dan rahasia bagi seluruh mahasiswa untuk memeriksa kondisi kesejahteraan diri mereka"}

@@ -17,6 +17,7 @@ import WHOCover from "@/assets/landing/wellbeing cover.jpg"
 import PSQICover from "@/assets/landing/sleep cover.jpg"
 import MBICover from "@/assets/landing/burnout cover.jpg"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 const screenings = {
   id: [
@@ -111,6 +112,7 @@ const screenings = {
 
 export function ScreeningsSection() {
   const language = useLanguageStore((s) => s.language)
+  const isEnglish = language === "en"
 
   const screeningCards = screenings[language]
 
@@ -118,11 +120,20 @@ export function ScreeningsSection() {
     <section id="gad-section" className="bg-olive-100">
       <SectionSafeWrapper className="relative flex flex-col gap-12">
         <SectionHeader className="relative z-10">
-          <SectionHeaderLabel>All Screening Tools</SectionHeaderLabel>
-          <SectionHeaderHeading>More tools coming soon</SectionHeaderHeading>
-          <SectionHeaderDescription className="xl:max-w-95">
-            We’re rolling out validated screenings gradually. GAD-7 is live now
-            - the rest are on the way.
+          <SectionHeaderLabel>
+            {isEnglish ? "All Screening Tools" : "Semua Alat Skrining"}
+          </SectionHeaderLabel>
+          <SectionHeaderHeading>
+            {isEnglish
+              ? "More tools coming soon"
+              : "Lebih banyak alat segera hadir"}
+          </SectionHeaderHeading>
+          <SectionHeaderDescription
+            className={cn("xl:max-w-95", !isEnglish && "xl:max-w-120")}
+          >
+            {isEnglish
+              ? "We’re rolling out validated screenings gradually. GAD-7 is live now - the rest are on the way."
+              : "Kami meluncurkan alat skrining tervalidasi ini secara bertahap. GAD-7 sudah aktif sekarang - yang lainnya akan segera menyusul."}
           </SectionHeaderDescription>
         </SectionHeader>
 
@@ -148,7 +159,7 @@ export function ScreeningsSection() {
                 <p className="text-olive-600">{s.description}</p>
 
                 <Button disabled={!s.active} variant="outline">
-                  {language === "en" ? "Take the test" : "Ambil tes"}
+                  {isEnglish ? "Take the test" : "Ambil tes"}
                 </Button>
               </div>
             </article>
