@@ -30,7 +30,7 @@ export function SectionHeaderHeading(props: ComponentPropsWithoutRef<"h2">) {
   return (
     <h2
       className={cn(
-        "mb-6 text-center text-2xl font-semibold md:text-3xl xl:text-4xl",
+        "mb-6 text-center text-2xl font-semibold text-teal-900 md:text-3xl xl:text-4xl",
         className
       )}
       {...rest}
