@@ -9,7 +9,12 @@ import HeroImageTablet from "@/assets/landing/hero image tablet.jpg"
 import HeroImageMobile from "@/assets/landing/hero image mobile.jpg"
 import { SectionSafeWrapper } from "./section-safe-wrapper"
 
+import { useLanguageStore } from "@/stores/use-language.store"
+
 export function HeroSection() {
+  const language = useLanguageStore((s) => s.language)
+  const isEnglish = language === "en"
+
   return (
     <section id="hero-section" className="overflow-y-hidden bg-olive-100">
       <SectionSafeWrapper className="grid grid-cols-1 gap-2.5 p-0 md:p-0 xl:max-h-192 xl:min-h-192 xl:grid-cols-2 xl:p-0">
@@ -19,27 +24,40 @@ export function HeroSection() {
               <Badge className="relative bg-teal-500 pl-1">
                 <span className="h-3 w-3 animate-ping rounded-full bg-teal-700" />
                 <span className="absolute top-1/2 left-1.5 h-2 w-2 -translate-y-1/2 rounded-full bg-teal-700" />
-                Now available: GAD-7 Anxiety Screening
+                {isEnglish
+                  ? "Now available: GAD-7 Anxiety Screening"
+                  : "Sekarang tersedia: Skrining Kecemasan GAD-7"}
               </Badge>
 
               <h1 className="mb-4 text-3xl leading-11 font-semibold text-teal-900 md:text-4xl md:leading-14 xl:text-4xl xl:leading-15 2xl:text-5xl 2xl:leading-17">
-                Supporting Students Minds, <br className="hidden md:block" />{" "}
-                Every Step of the Way
+                {isEnglish ? (
+                  <>
+                    Supporting Students Minds,{" "}
+                    <br className="hidden md:block" /> Every Step of the Way
+                  </>
+                ) : (
+                  <>
+                    Menjaga Pikiran Mahasiswa,{" "}
+                    <br className="hidden md:block" /> Di Setiap Langkah
+                    Perjalanan
+                  </>
+                )}
               </h1>
 
               <p className="font-medium text-olive-600 md:max-w-90">
-                Nusa Putra University’s free mental health screening platform -
-                a safe, confidential place for all students to check in on their
+                {isEnglish
+                  ? "Nusa Putra University’s free mental health screening platform - a safe, confidential place for all students to check in on their"
+                  : "Platform skrining kesehatan mental gratis Universitas Nusa Putra - ruang aman dan rahasia bagi seluruh mahasiswa untuk memeriksa kondisi kesejahteraan diri mereka"}
                 wellbeing
               </p>
             </div>
 
             <div className="flex flex-col gap-2.5 md:flex-row">
               <Button className="w-max px-5" size="lg">
-                Start GAD-7 screening
+                {isEnglish ? "Start GAD-7 screening" : "Mulai skrining GAD-7"}
               </Button>
               <Button className="w-max px-5" size="lg" variant="outline">
-                Book an appointment{" "}
+                {isEnglish ? "Book an appointment" : "Buat janji temu"}
                 <HugeiconsIcon icon={Call02Icon} className="h-4.5 w-4.5" />
               </Button>
             </div>
@@ -52,11 +70,15 @@ export function HeroSection() {
             />
 
             <div className="flex items-center gap-2 text-nowrap">
-              <p>Free</p>
+              <p>{isEnglish ? "Free" : "Gratis"}</p>
               <span className="block h-1 w-1 rounded-full bg-teal-500" />
-              <p>Confidential</p>
+              <p>{isEnglish ? "Confidential" : "Rahasia"}</p>
               <span className="block h-1 w-1 rounded-full bg-teal-500" />
-              <p>For Nusa Putra University Students</p>
+              <p>
+                {isEnglish
+                  ? "For Nusa Putra University Students"
+                  : "Untuk Mahasiswa Universitas Nusa Putra"}
+              </p>
             </div>
           </div>
         </div>
