@@ -1,6 +1,6 @@
 import {
   HeroSection,
-  CTASection,
+  CtaSection,
   StepsSection,
   ScreeningsSection,
   GADSection,
@@ -18,7 +18,7 @@ export function LandingPage() {
         <GADSection />
         <ScreeningsSection />
         <StepsSection />
-        <CTASection />
+        <CtaSection />
       </main>
 
       <FooterSection />

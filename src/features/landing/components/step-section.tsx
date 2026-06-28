@@ -9,7 +9,10 @@ import { SectionSafeWrapper } from "./section-safe-wrapper"
 import StepOneBadge from "@/assets/landing/list item 1.svg"
 import StepTwoBadge from "@/assets/landing/list item 2.svg"
 import StepThreeBadge from "@/assets/landing/list item 3.svg"
-import StepCover from "@/assets/landing/step cover desktop.jpg"
+
+import StepCoverDesktop from "@/assets/landing/step cover desktop.jpg"
+import StepCoverTablet from "@/assets/landing/strep cover tablet.jpg"
+import StepCoverMobile from "@/assets/landing/step cover mobile.jpg"
 
 const content = {
   id: {
@@ -66,7 +69,24 @@ export function StepsSection() {
     <section id="how-it-works" className="bg-white">
       <SectionSafeWrapper className="grid grid-cols-1 gap-12 lg:grid-cols-2 xl:gap-17">
         <div className="row-start-2 w-full overflow-hidden xl:row-start-1">
-          <img src={StepCover} alt="" className="h-full w-full object-cover" />
+          <img
+            className="hidden h-full w-full object-cover xl:block 2xl:w-[200%]"
+            src={StepCoverDesktop}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className="hidden h-full w-full object-cover md:block xl:hidden"
+            src={StepCoverTablet}
+            alt=""
+            aria-hidden="true"
+          />
+          <img
+            className="block h-full w-full object-cover md:hidden"
+            src={StepCoverMobile}
+            alt=""
+            aria-hidden="true"
+          />
         </div>
 
         <div className="order-1 flex w-full flex-col gap-12 lg:order-2">
