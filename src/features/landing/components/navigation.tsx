@@ -1,14 +1,14 @@
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import { HugeiconsIcon } from "@hugeicons/react"
-import { Menu02Icon } from "@hugeicons/core-free-icons"
+import { Menu02Icon, CancelIcon } from "@hugeicons/core-free-icons"
 
 import useBreakpoint from "@/hooks/use-breakpoint.hooks"
 import useScrollProgress from "@/hooks/use-scrollprogress.hooks"
+import { useLanguageStore } from "@/stores/use-language.store"
 
 import { Button, buttonVariants } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/shared/language-switcher"
-import { useLanguageStore } from "@/stores/use-language.store"
-import { useEffect, useState } from "react"
 
 const NAV_LINKS = [
   { href: "#", label: { id: "Beranda", en: "Home" } },
@@ -116,7 +116,9 @@ function MobileNavigation() {
   return (
     <header
       className="fixed top-0 left-0 z-50 w-full bg-olive-50"
-      style={{ background: `rgba(251, 251, 249, ${scrollProgress})` }}
+      style={{
+        background: `rgba(251, 251, 249, ${open ? 1 : scrollProgress})`,
+      }}
     >
       <div className="mx-auto flex h-16 w-full max-w-380 items-center justify-between gap-2.5 px-6 md:px-8">
         <p className="text-lg font-semibold text-teal-900">CarePoint NPU</p>
@@ -129,17 +131,21 @@ function MobileNavigation() {
             className="bg-transparent"
             onClick={toggleNav}
           >
-            <HugeiconsIcon icon={Menu02Icon} />
+            {open ? (
+              <HugeiconsIcon icon={CancelIcon} />
+            ) : (
+              <HugeiconsIcon icon={Menu02Icon} />
+            )}
           </Button>
         </div>
 
         <nav
           className={cn(
-            "fixed -top-full right-0 left-0 bg-white transition-all xl:hidden",
+            "fixed -top-full right-0 left-0 flex h-[calc(100dvh-64px)] flex-col transition-all xl:hidden",
             open && "top-16"
           )}
         >
-          <ul className="flex flex-col">
+          <ul className="flex flex-col bg-white">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={href}>
                 <a
@@ -152,6 +158,15 @@ function MobileNavigation() {
               </li>
             ))}
           </ul>
+
+          <span
+            aria-hidden="true"
+            className={cn(
+              "block flex-1 bg-zinc-950/35 opacity-0 transition-opacity delay-100",
+              open && "opacity-100"
+            )}
+            onClick={closeNav}
+          />
         </nav>
       </div>
     </header>
