@@ -133,3 +133,9 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 2em;
 }
+
+.stop-scroll {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}

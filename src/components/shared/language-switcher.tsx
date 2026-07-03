@@ -13,7 +13,12 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Languages } from "@hugeicons/core-free-icons"
 import { useShallow } from "zustand/shallow"
 
+import useBreakpoint from "@/hooks/use-breakpoint.hooks"
+
 export function LanguageSwitcher() {
+  const br = useBreakpoint()
+  const onDesktop = br === "desktop"
+
   const { language, changeLanguage } = useLanguageStore(
     useShallow((s) => ({
       language: s.language,
@@ -25,9 +30,13 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">
+        <Button
+          variant="outline"
+          className="bg-transparent xl:bg-white"
+          size="lg"
+        >
           <HugeiconsIcon icon={Languages} className="h-4.5 w-4.5" />
-          {isEnglish ? "English" : "Indonesia"}
+          {isEnglish ? "Eng" : "Id"}
         </Button>
       </DropdownMenuTrigger>
 

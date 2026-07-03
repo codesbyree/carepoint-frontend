@@ -8,6 +8,7 @@ import useScrollProgress from "@/hooks/use-scrollprogress.hooks"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { LanguageSwitcher } from "@/components/shared/language-switcher"
 import { useLanguageStore } from "@/stores/use-language.store"
+import { useEffect, useState } from "react"
 
 const NAV_LINKS = [
   { href: "#", label: { id: "Beranda", en: "Home" } },
@@ -92,21 +93,66 @@ function DesktopNavigation() {
 }
 
 function MobileNavigation() {
+  const language = useLanguageStore((s) => s.language)
+
+  const [open, setOpen] = useState(false)
   const scrollProgress = useScrollProgress(350, [0, 1], 1)
+
+  const toggleNav = () => setOpen(!open)
+  const closeNav = () => setOpen(false)
+
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add("stop-scroll")
+    } else {
+      document.body.classList.remove("stop-scroll")
+    }
+
+    return () => {
+      document.body.classList.remove("stop-scroll")
+    }
+  }, [open])
 
   return (
     <header
       className="fixed top-0 left-0 z-50 w-full bg-olive-50"
       style={{ background: `rgba(251, 251, 249, ${scrollProgress})` }}
     >
-      <div className="mx-auto flex w-full max-w-380 items-center justify-between gap-2.5 p-6 py-4 md:px-8">
+      <div className="mx-auto flex h-16 w-full max-w-380 items-center justify-between gap-2.5 px-6 md:px-8">
         <p className="text-lg font-semibold text-teal-900">CarePoint NPU</p>
 
-        <div className="flex justify-end gap-4">
-          <Button size="icon-lg" variant="ghost">
+        <div className="flex justify-end gap-2">
+          <LanguageSwitcher />
+          <Button
+            size="icon-lg"
+            variant="outline"
+            className="bg-transparent"
+            onClick={toggleNav}
+          >
             <HugeiconsIcon icon={Menu02Icon} />
           </Button>
         </div>
+
+        <nav
+          className={cn(
+            "fixed -top-full right-0 left-0 bg-white transition-all xl:hidden",
+            open && "top-16"
+          )}
+        >
+          <ul className="flex flex-col">
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className="block p-4 px-6 outline outline-transparent transition-all hover:bg-olive-50 focus:outline-blue-500 active:bg-olive-50 md:px-8"
+                  onClick={closeNav}
+                >
+                  {label[language]}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </header>
   )
