@@ -19,7 +19,7 @@ export function FooterSection() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-9 md:flex-row md:gap-16">
+          <div className="flex flex-col gap-9 md:flex-row md:gap-16 xl:gap-20">
             <div className="space-y-6">
               <p className="text-olive-50">
                 {isEnglish ? "SCREENINGS" : "SKRINING"}
@@ -65,28 +65,12 @@ export function FooterSection() {
                 </li>
               </ul>
             </div>
-
-            <div className="space-y-6">
-              <p className="text-olive-50">{isEnglish ? "ACCOUNT" : "AKUN"}</p>
-
-              <ul className="flex flex-col gap-4">
-                <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">
-                  {isEnglish ? "Login" : "Masuk"}
-                </li>
-                <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">
-                  {isEnglish ? "Register" : "Daftar"}
-                </li>
-                <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">
-                  {isEnglish ? "My results" : "Hasil saya"}
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
 
         <span className="block h-px w-full bg-teal-700" />
 
-        <div className="grid grid-cols-1 gap-16 xl:grid-cols-[1fr_473px]">
+        <div className="grid grid-cols-1 gap-16 xl:grid-cols-[1fr_350px]">
           <p className="text-olive-50">
             {isEnglish
               ? "© CarePoint NPU. All rights reserved."
@@ -99,9 +83,6 @@ export function FooterSection() {
             </li>
             <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">
               {isEnglish ? "Terms of Use" : "Syarat Ketentuan"}
-            </li>
-            <li className="transition-color cursor-pointer text-olive-50/70 hover:text-olive-50/90">
-              {isEnglish ? "Accessibility" : "Aksesibilitas"}
             </li>
           </ul>
         </div>
