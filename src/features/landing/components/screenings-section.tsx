@@ -117,7 +117,7 @@ export function ScreeningsSection() {
   const screeningCards = screenings[language]
 
   return (
-    <section id="screenings-section" className="relative bg-olive-100">
+    <section id="screenings" className="relative bg-olive-100">
       <SectionSafeWrapper className="relative flex flex-col gap-12">
         <SectionHeader className="relative z-10">
           <SectionHeaderLabel>

@@ -12,12 +12,12 @@ import { SectionSafeWrapper } from "./section-safe-wrapper"
 import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
 
-export function GADSection() {
+export function FeaturedScreeningSection() {
   const language = useLanguageStore((s) => s.language)
   const isEnglish = language === "en"
 
   return (
-    <section id="featured-screening-section" className="bg-olive-100">
+    <section id="featured-screening" className="bg-olive-100">
       <SectionSafeWrapper className="flex flex-col gap-12">
         <SectionHeader>
           <SectionHeaderLabel>

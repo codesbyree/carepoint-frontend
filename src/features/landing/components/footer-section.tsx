@@ -13,7 +13,7 @@ export function FooterSection() {
       <SectionSafeWrapper className="flex flex-col gap-9">
         <div className="flex flex-col justify-between gap-12 xl:flex-row">
           <div className="space-y-2.5">
-            <h2 className="text-2xl text-olive-50">Nusa Putra University</h2>
+            <h2 className="text-2xl text-olive-50">CarePoint NPU</h2>
             <p className="text-olive-50/70">
               Jl. Raya Cibolang No. 21 Sukabumi, West Java Indonesia
             </p>
@@ -89,8 +89,8 @@ export function FooterSection() {
         <div className="grid grid-cols-1 gap-16 xl:grid-cols-[1fr_473px]">
           <p className="text-olive-50">
             {isEnglish
-              ? "© Nusa Putra University. All rights reserved."
-              : "© Universitas Nusa Putra. Hak cipta dilindungi undang-undang."}
+              ? "© CarePoint NPU. All rights reserved."
+              : "© CarePoint NPU. Hak cipta dilindungi undang-undang."}
           </p>
 
           <ul className="flex flex-col justify-between gap-4 md:flex-row md:gap-9 xl:gap-16">
