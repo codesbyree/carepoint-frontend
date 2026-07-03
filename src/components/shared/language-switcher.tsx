@@ -13,12 +13,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Languages } from "@hugeicons/core-free-icons"
 import { useShallow } from "zustand/shallow"
 
-import useBreakpoint from "@/hooks/use-breakpoint.hooks"
-
 export function LanguageSwitcher() {
-  const br = useBreakpoint()
-  const onDesktop = br === "desktop"
-
   const { language, changeLanguage } = useLanguageStore(
     useShallow((s) => ({
       language: s.language,
