@@ -13,7 +13,9 @@ export function FooterSection() {
       <SectionSafeWrapper className="flex flex-col gap-9">
         <div className="flex flex-col justify-between gap-12 xl:flex-row">
           <div className="space-y-2.5">
-            <h2 className="text-2xl text-olive-50">CarePoint NPU</h2>
+            <h2 className="text-xl font-semibold text-olive-50 lg:text-2xl">
+              CarePoint
+            </h2>
             <p className="text-olive-50/70">
               Jl. Raya Cibolang No. 21 Sukabumi, West Java Indonesia
             </p>

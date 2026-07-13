@@ -58,9 +58,7 @@ function DesktopNavigation() {
       >
         <div className="relative mx-auto grid w-full max-w-380 grid-cols-2 gap-2.5 p-6 py-6 md:px-8 xl:px-16 2xl:px-0">
           <div className="flex w-full items-center justify-between xl:gap-0">
-            <p className="font-semibold text-nowrap text-teal-900">
-              CarePoint NPU
-            </p>
+            <p className="font-semibold text-nowrap text-teal-900">CarePoint</p>
             <nav className="absolute left-1/2 -translate-x-1/2 xl:static xl:left-0 xl:translate-x-0">
               <NavLinks />
             </nav>
@@ -79,7 +77,7 @@ function DesktopNavigation() {
         )}
       >
         <div className="relative mx-auto flex w-full max-w-380 items-center justify-between p-6 py-6 md:px-8 xl:px-16 2xl:px-0">
-          <p className="font-semibold text-teal-900">CarePoint NPU</p>
+          <p className="font-semibold text-teal-900">CarePoint</p>
           <nav className="absolute left-1/2 -translate-x-1/2">
             <NavLinks />
           </nav>
@@ -121,7 +119,7 @@ function MobileNavigation() {
       }}
     >
       <div className="mx-auto flex h-16 w-full max-w-380 items-center justify-between gap-2.5 px-6 md:px-8">
-        <p className="text-lg font-semibold text-teal-900">CarePoint NPU</p>
+        <p className="text-lg font-semibold text-teal-900">CarePoint</p>
 
         <div className="flex justify-end gap-2">
           <LanguageSwitcher />
