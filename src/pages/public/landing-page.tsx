@@ -6,6 +6,7 @@ import {
   FeaturedScreeningSection,
   Navigation,
   AboutSection,
+  FAQSection,
 } from "@/features/landing/components"
 import { FooterSection } from "@/features/landing/components/footer-section"
 
@@ -20,6 +21,7 @@ export function LandingPage() {
         <FeaturedScreeningSection />
         <ScreeningsSection />
         <StepsSection />
+        <FAQSection />
         <CtaSection />
       </main>
 
