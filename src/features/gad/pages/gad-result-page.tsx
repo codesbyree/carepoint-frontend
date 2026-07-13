@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { cn } from "@/lib/utils"
 import { useLanguageStore } from "@/stores/use-language.store"
 
@@ -16,16 +16,22 @@ import { Button, buttonVariants } from "@/components/ui/button"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { Call, Download } from "@hugeicons/core-free-icons"
 import { getSeverityDetails } from "../utils/gad.utils"
-
-// Helper to determine severity colors and clinically accurate descriptions based on GAD-7 thresholds
+import type { AssessmentResult } from "../api/gad"
 
 export function GADResultPage() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const result = location.state?.result as AssessmentResult | undefined
+
   const lang = useLanguageStore((s) => s.language)
   const isEnglish = lang === "en"
 
-  // Assuming a score variable here. You would typically pass this via props or state.
-  const score = 4
-  const severity = getSeverityDetails(score)
+  if (!result) {
+    navigate("/screening/gad", { replace: true })
+    return null
+  }
+
+  const severity = getSeverityDetails(result.ml_predicted_severity)
 
   const titleText = isEnglish
     ? "Generalized Anxiety Disorder Screening Score"
@@ -33,10 +39,10 @@ export function GADResultPage() {
 
   return (
     <div className="min-h-dvh bg-olive-100">
-      <ScreeningHeader />
+      <ScreeningHeader customUrl="/screening/gad" />
 
       <main className="flex flex-col items-center gap-5 p-6 pt-20">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-lg">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-teal-900">
               {titleText}
@@ -45,13 +51,42 @@ export function GADResultPage() {
           </CardHeader>
 
           <CardContent className="flex flex-col gap-4">
-            <div className={cn("rounded-lg border p-2", severity.bgClass)}>
-              <p className={cn("text-3xl font-semibold", severity.textClass)}>
-                {score}/21
-              </p>
-              <p className={severity.subTextClass}>
-                {isEnglish ? severity.labelEn : severity.labelId}
-              </p>
+            <div className="grid grid-cols-2 gap-2">
+              <div className={cn("rounded-lg border p-2", severity.bgClass)}>
+                <p className={severity.subTextClass}>
+                  {isEnglish
+                    ? "Machine learning prediction"
+                    : "Prediksi machine learning"}
+                </p>
+                <p className={cn("text-2xl font-semibold", severity.textClass)}>
+                  {isEnglish ? severity.labelEn : severity.labelId}
+                </p>
+              </div>
+
+              <div className={cn("rounded-lg border p-2", severity.bgClass)}>
+                <p className={severity.subTextClass}>
+                  {isEnglish
+                    ? "Machine Learning confidence"
+                    : "Tingkat kepercayaan prediksi"}
+                </p>
+                <p className={cn("text-2xl font-semibold", severity.textClass)}>
+                  {(result.ml_confidence * 100).toFixed(0)}%
+                </p>
+              </div>
+
+              <div
+                className={cn(
+                  "col-span-2 rounded-lg border p-2",
+                  severity.bgClass
+                )}
+              >
+                <p className={severity.subTextClass}>
+                  {isEnglish ? "GAD-7 Score" : "Skor GAD-7"}
+                </p>
+                <p className={cn("text-3xl font-semibold", severity.textClass)}>
+                  {result.total_score}
+                </p>
+              </div>
             </div>
 
             <p className="text-base text-olive-600">

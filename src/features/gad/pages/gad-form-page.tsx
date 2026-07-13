@@ -17,71 +17,12 @@ import { useGADForm } from "../stores/gad-form.store"
 import { Button } from "@/components/ui/button"
 import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
-
-const DICTIONARY = {
-  en: {
-    questions: [
-      "How often have you been feeling nervous, anxious, or on edge?",
-      "Not being able to stop or control worrying?",
-      "Worrying too much about different things?",
-      "Trouble relaxing?",
-      "Being so restless that it is hard to sit still?",
-      "Becoming easily annoyed or irritable?",
-      "Feeling afraid as if something awful might happen?",
-    ],
-    options: [
-      "Not at all",
-      "Several days",
-      "More than half the days",
-      "Nearly every day",
-    ],
-    ui: {
-      stepPrefix: "Question",
-      stepSuffix: "of",
-      timeframe: "In the past two weeks,",
-      btnPrev: "Previous question",
-      btnNext: "Next question",
-      btnSubmit: "See my result",
-      alertTitle: "Are you absolutely sure?",
-      alertDesc:
-        "You have unsaved changes. Leaving this page will discard them permanently.",
-      alertCancel: "Stay on page",
-      alertAction: "Discard & leave",
-    },
-  },
-  id: {
-    questions: [
-      "Seberapa sering Anda merasa gugup, cemas, atau tegang?",
-      "Tidak mampu menghentikan atau mengendalikan kekhawatiran?",
-      "Terlalu mengkhawatirkan berbagai macam hal?",
-      "Kesulitan untuk bersantai?",
-      "Merasa sangat gelisah sehingga sulit untuk duduk diam?",
-      "Menjadi mudah jengkel atau marah?",
-      "Merasa takut seolah-olah sesuatu yang buruk mungkin terjadi?",
-    ],
-    options: [
-      "Tidak sama sekali",
-      "Beberapa hari",
-      "Lebih dari separuh waktu",
-      "Hampir setiap hari",
-    ],
-    ui: {
-      stepPrefix: "Pertanyaan",
-      stepSuffix: "dari",
-      timeframe: "Dalam dua minggu terakhir,",
-      btnPrev: "Pertanyaan sebelumnya",
-      btnNext: "Pertanyaan selanjutnya",
-      btnSubmit: "Lihat hasil saya",
-      alertTitle: "Apakah Anda benar-benar yakin?",
-      alertDesc:
-        "Anda memiliki perubahan yang belum disimpan. Meninggalkan halaman ini akan menghapusnya secara permanen.",
-      alertCancel: "Tetap di halaman",
-      alertAction: "Buang & tinggalkan",
-    },
-  },
-}
+import { useAssessment } from "../hooks/useAssessment"
+import { DICTIONARY } from "../config/form-dictionary"
 
 export function GADFormPage() {
+  const { loading, error, submit } = useAssessment()
+
   const lang = useLanguageStore((s) => s.language)
   const isEnglish = lang === "en"
   const content = isEnglish ? DICTIONARY.en : DICTIONARY.id
@@ -212,13 +153,22 @@ export function GADFormPage() {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalScores = { q1, q2, q3, q4, q5, q6, q7 }
-    console.log("Submitting GAD-7 Scores:", finalScores)
 
     isSubmittingRef.current = true
+    const result = await submit(finalScores)
+
+    if (!result) {
+      isSubmittingRef.current = false
+      return
+    }
+
     clearForm()
-    navigate("/screening/gad/result", { replace: true })
+    navigate("/screening/gad/result", {
+      replace: true,
+      state: { result },
+    })
   }
 
   const currentQuestionIndex = currentQuestion - 1
@@ -235,7 +185,7 @@ export function GADFormPage() {
     <div className="min-h-dvh bg-olive-100">
       <ScreeningHeader customUrl="/screening/gad" />
 
-      <main className="mx-auto flex max-w-md flex-col items-center p-6 pt-20">
+      <main className="mx-auto flex max-w-lg flex-col items-center p-6 pt-20">
         <div className="mb-6 text-center">
           <p className="mb-2 text-sm text-teal-700">
             {content.ui.stepPrefix} {currentQuestion} {content.ui.stepSuffix} 7
@@ -298,11 +248,17 @@ export function GADFormPage() {
               {content.ui.btnNext}
             </Button>
           ) : (
-            <Button onClick={handleSubmit} size="lg">
-              {content.ui.btnSubmit}
+            <Button onClick={handleSubmit} size="lg" disabled={loading}>
+              {loading
+                ? (content.ui.btnSubmitting ?? "...")
+                : content.ui.btnSubmit}
             </Button>
           )}
         </div>
+
+        {error && (
+          <p className="mt-3 text-center text-sm text-red-600">{error}</p>
+        )}
       </main>
 
       <AlertDialog open={blocker.state === "blocked"}>

@@ -29,7 +29,7 @@ export function GADInfoPage() {
       <ScreeningHeader customUrl="/" />
 
       <main className="flex justify-center p-6 pt-20">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-lg">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-teal-900">
               {titleText}
