@@ -1,7 +1,12 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom"
 import { LandingPage } from "./pages/public"
 import { GADLayout } from "./features/gad/layout/gad-layout"
-import { GADForm, GADResult, GADSave } from "./features/gad/components"
+import {
+  GADFormPage,
+  GADInfoPage,
+  GADResultPage,
+  GADSavePage,
+} from "./features/gad/pages"
 
 const router = createBrowserRouter([
   {
@@ -13,9 +18,10 @@ const router = createBrowserRouter([
         path: "screening/gad",
         element: <GADLayout />,
         children: [
-          { path: "form", element: <GADForm /> },
-          { path: "result", element: <GADResult /> },
-          { path: "save-result", element: <GADSave /> },
+          { index: true, element: <GADInfoPage /> },
+          { path: "form", element: <GADFormPage /> },
+          { path: "result", element: <GADResultPage /> },
+          { path: "save-result", element: <GADSavePage /> },
         ],
       },
     ],
