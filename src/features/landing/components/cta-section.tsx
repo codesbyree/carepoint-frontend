@@ -38,7 +38,7 @@ export function CtaSection() {
   const t = content[language]
 
   return (
-    <section id="cta-section" className="bg-olive-50">
+    <section id="cta-section" className="bg-olive-100">
       <SectionSafeWrapper>
         <div className="relative overflow-hidden rounded-3xl">
           <div className="absolute inset-0 bg-teal-800">

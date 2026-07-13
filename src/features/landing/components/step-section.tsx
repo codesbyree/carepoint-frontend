@@ -17,13 +17,8 @@ import StepCoverMobile from "@/assets/landing/step cover mobile.jpg"
 const content = {
   id: {
     label: "Cara Kerjanya",
-    heading: "Tiga langkah mudah",
+    heading: "Dua langkah mudah",
     steps: [
-      {
-        title: "Daftar atau masuk",
-        description:
-          "Buat akun mahasiswa Nusa Putra gratis kamu untuk menyimpan hasil dan melacak kesejahteraan kamu dari waktu ke waktu.",
-      },
       {
         title: "Ikuti skrining",
         description:
@@ -38,13 +33,8 @@ const content = {
   },
   en: {
     label: "How It Works",
-    heading: "Three simple steps",
+    heading: "Two simple steps",
     steps: [
-      {
-        title: "Register or log in",
-        description:
-          "Create your free Nusa Putra student account to save your results and track your wellbeing over time.",
-      },
       {
         title: "Take a screening",
         description:
