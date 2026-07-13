@@ -233,9 +233,9 @@ export function GADFormPage() {
 
   return (
     <div className="min-h-dvh bg-olive-100">
-      <ScreeningHeader />
+      <ScreeningHeader customUrl="/screening/gad" />
 
-      <main className="mx-auto flex max-w-2xl flex-col items-center p-6 pt-20">
+      <main className="mx-auto flex max-w-md flex-col items-center p-6 pt-20">
         <div className="mb-6 text-center">
           <p className="mb-2 text-sm text-teal-700">
             {content.ui.stepPrefix} {currentQuestion} {content.ui.stepSuffix} 7

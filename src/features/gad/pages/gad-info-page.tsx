@@ -26,10 +26,10 @@ export function GADInfoPage() {
 
   return (
     <div className="min-h-dvh bg-olive-100">
-      <ScreeningHeader />
+      <ScreeningHeader customUrl="/" />
 
       <main className="flex justify-center p-6 pt-20">
-        <Card className="w-full max-w-xl">
+        <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle className="text-lg font-semibold text-teal-900">
               {titleText}
