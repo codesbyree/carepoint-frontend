@@ -1,3 +1,7 @@
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom"
+
 import { useLanguageStore } from "@/stores/use-language.store"
 import {
   SectionHeaderDescription,
@@ -16,8 +20,6 @@ import StressCover from "@/assets/landing/stress cover.jpg"
 import WHOCover from "@/assets/landing/wellbeing cover.jpg"
 import PSQICover from "@/assets/landing/sleep cover.jpg"
 import MBICover from "@/assets/landing/burnout cover.jpg"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 
 const screenings = {
   id: [
@@ -158,9 +160,15 @@ export function ScreeningsSection() {
                 <h3 className="text-xl font-medium text-teal-900">{s.title}</h3>
                 <p className="text-olive-600">{s.description}</p>
 
-                <Button disabled={!s.active} variant="outline">
+                <Link
+                  to="/screening/gad"
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    !s.active && "pointer-events-none opacity-60"
+                  )}
+                >
                   {isEnglish ? "Take the test" : "Ambil tes"}
-                </Button>
+                </Link>
               </div>
             </article>
           ))}

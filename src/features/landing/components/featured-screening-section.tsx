@@ -1,7 +1,7 @@
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   SectionHeader,
   SectionHeaderDescription,
@@ -11,6 +11,7 @@ import {
 import { SectionSafeWrapper } from "./section-safe-wrapper"
 import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom"
 
 export function FeaturedScreeningSection() {
   const language = useLanguageStore((s) => s.language)
@@ -82,10 +83,13 @@ export function FeaturedScreeningSection() {
               : "Setelah menyelesaikan GAD-7, Anda akan menerima skor beserta penjelasan yang mudah dipahami dan, jika diperlukan, rekomendasi untuk berbicara dengan salah satu psikolog kampus kami."}
           </p>
 
-          <Button variant="outline" className="w-max">
+          <Link
+            to="/screening/gad"
+            className={cn(buttonVariants({ variant: "outline" }), "w-max")}
+          >
             {isEnglish ? "Take the GAD-7 now" : "Mulai GAD-7 sekarang"}
             <HugeiconsIcon icon={ArrowRight02Icon} className="h-5 w-5" />
-          </Button>
+          </Link>
         </div>
       </SectionSafeWrapper>
     </section>

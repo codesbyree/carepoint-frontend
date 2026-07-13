@@ -76,16 +76,9 @@ export function CtaSection() {
             </SectionHeader>
 
             <div className="mt-2 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button
-                size="lg"
-                className="w-full bg-teal-700 text-white hover:bg-teal-600 sm:w-auto"
-              >
-                {t.primaryCta}
-              </Button>
-
               <Button className="w-max px-5" size="lg" variant="outline">
-                {t.secondaryCta}
                 <HugeiconsIcon icon={Call02Icon} className="h-4.5 w-4.5" />
+                {t.secondaryCta}
               </Button>
             </div>
           </div>

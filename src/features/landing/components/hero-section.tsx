@@ -2,7 +2,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Call02Icon, LockKeyhole } from "@hugeicons/core-free-icons"
 
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 
 import HeroImageDesktop from "@/assets/landing/hero image desktop.jpg"
 import HeroImageTablet from "@/assets/landing/hero image tablet.jpg"
@@ -11,6 +11,7 @@ import { SectionSafeWrapper } from "./section-safe-wrapper"
 
 import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom"
 
 export function HeroSection() {
   const language = useLanguageStore((s) => s.language)
@@ -59,12 +60,19 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col gap-2.5 md:flex-row">
-              <Button className="w-max px-5" size="lg">
+              <Link
+                to="/screening/gad"
+                className={cn(
+                  buttonVariants({ variant: "default", size: "lg" }),
+                  "w-max px-5"
+                )}
+              >
                 {isEnglish ? "Start GAD-7 screening" : "Mulai skrining GAD-7"}
-              </Button>
+              </Link>
+
               <Button className="w-max px-5" size="lg" variant="outline">
-                {isEnglish ? "Book an appointment" : "Buat janji temu"}
                 <HugeiconsIcon icon={Call02Icon} className="h-4.5 w-4.5" />
+                {isEnglish ? "Book an appointment" : "Buat janji temu"}
               </Button>
             </div>
           </div>

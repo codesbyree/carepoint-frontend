@@ -15,7 +15,7 @@ const NAV_LINKS = [
   { href: "#about", label: { id: "Tentang", en: "About" } },
   {
     href: "#featured-screening",
-    label: { id: "Featured Screening", en: "Featured Screening" },
+    label: { id: "Skrining Unggulan", en: "Featured Screening" },
   },
   { href: "#screenings", label: { id: "Skrining", en: "Screenings" } },
   { href: "#faq", label: { id: "FAQ", en: "FAQ" } },
