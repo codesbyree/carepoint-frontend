@@ -1,6 +1,7 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useBlocker, useNavigate } from "react-router-dom"
 import { useShallow } from "zustand/shallow"
+import { motion } from "motion/react"
 
 import {
   AlertDialog,
@@ -19,8 +20,12 @@ import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
 import { useAssessment } from "../hooks/useAssessment"
 import { DICTIONARY } from "../config/form-dictionary"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ChevronLeftIcon, ChevronRightIcon } from "@hugeicons/core-free-icons"
 
 export function GADFormPage() {
+  const [direction, setDirection] = useState(0)
+
   const { loading, error, submit } = useAssessment()
 
   const lang = useLanguageStore((s) => s.language)
@@ -144,12 +149,14 @@ export function GADFormPage() {
   const handleNext = () => {
     if (currentQuestion < 7) {
       setCurrentQuestion(currentQuestion + 1)
+      setDirection(1)
     }
   }
 
   const handlePrev = () => {
     if (currentQuestion > 1) {
       setCurrentQuestion(currentQuestion - 1)
+      setDirection(-1)
     }
   }
 
@@ -167,7 +174,18 @@ export function GADFormPage() {
     clearForm()
     navigate("/screening/gad/result", {
       replace: true,
-      state: { result },
+      state: {
+        result,
+        userResponses: [
+          finalScores.q1,
+          finalScores.q2,
+          finalScores.q3,
+          finalScores.q4,
+          finalScores.q5,
+          finalScores.q6,
+          finalScores.q7,
+        ],
+      },
     })
   }
 
@@ -197,48 +215,79 @@ export function GADFormPage() {
           <p className="mb-2 text-sm text-olive-600 italic">
             {content.ui.timeframe}
           </p>
-          <h1 className="text-xl leading-tight font-bold text-teal-900">
+          <motion.h1
+            transition={{
+              type: "spring",
+              bounce: 0.1, // Adds that slight, subtle iOS-style tap bounce
+              damping: 28, // Controls how fast the spring stops (prevents excessive wobble)
+              stiffness: 300, // Controls the tension and speed
+              mass: 1, // Default mass
+            }}
+            initial={{ opacity: 0, filter: "blur(10px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            className="text-xl leading-tight font-bold text-teal-900"
+          >
             {content.questions[currentQuestionIndex]}
-          </h1>
+          </motion.h1>
         </div>
 
-        <div className="mb-12 w-full space-y-2">
-          {currentOptions.map((option) => {
-            const isSelected = selectedValue === option.value
-            return (
-              <label
-                key={option.value}
-                className={cn(
-                  "flex cursor-pointer items-center rounded-2xl border bg-white p-4 text-teal-900 transition-colors",
-                  isSelected ? "border-teal-700" : "border-border"
-                )}
-              >
-                <input
-                  type="radio"
-                  name={`question-${currentQuestion}`}
-                  value={option.value}
-                  checked={isSelected}
-                  onChange={() => handleOptionSelect(option.value)}
-                  className="hidden"
-                />
-                <div
-                  className={`mr-4 flex h-4.5 w-4.5 items-center justify-center rounded-full border ${
-                    isSelected ? "border-teal-700" : "border-gray-200"
-                  }`}
-                >
-                  {isSelected && (
-                    <div className="h-2 w-2 rounded-full bg-teal-800" />
+        <motion.div
+          key={currentQuestion}
+          transition={{
+            type: "spring",
+            bounce: 0.1, // Adds that slight, subtle iOS-style tap bounce
+            damping: 28, // Controls how fast the spring stops (prevents excessive wobble)
+            stiffness: 300, // Controls the tension and speed
+            mass: 1, // Default mass
+          }}
+          initial={{ x: direction * 70, opacity: 0, filter: "blur(10px)" }}
+          animate={{ x: 0, opacity: 1, filter: "blur(0px)" }}
+          className="w-full"
+        >
+          <div className="mb-12 w-full space-y-2">
+            {currentOptions.map((option) => {
+              const isSelected = selectedValue === option.value
+              return (
+                <label
+                  key={option.value}
+                  className={cn(
+                    "flex cursor-pointer items-center rounded-2xl border bg-white p-4 text-teal-900 transition-colors",
+                    isSelected ? "border-teal-700" : "border-border"
                   )}
-                </div>
-                <span className="text-base font-semibold">{option.label}</span>
-              </label>
-            )
-          })}
-        </div>
+                >
+                  <input
+                    type="radio"
+                    name={`question-${currentQuestion}`}
+                    value={option.value}
+                    checked={isSelected}
+                    onChange={() => handleOptionSelect(option.value)}
+                    className="hidden"
+                  />
+                  <div
+                    className={`mr-4 flex h-4.5 w-4.5 items-center justify-center rounded-full border ${
+                      isSelected ? "border-teal-700" : "border-gray-200"
+                    }`}
+                  >
+                    {isSelected && (
+                      <div className="h-2 w-2 rounded-full bg-teal-800" />
+                    )}
+                  </div>
+                  <span className="text-base font-semibold">
+                    {option.label}
+                  </span>
+                </label>
+              )
+            })}
+          </div>
+        </motion.div>
 
         <div className="flex w-full justify-center gap-2">
           {currentQuestion > 1 && (
             <Button variant="outline" onClick={handlePrev} size="lg">
+              <HugeiconsIcon
+                icon={ChevronLeftIcon}
+                className="h-5 w-5 shrink-0"
+              />
               {content.ui.btnPrev}
             </Button>
           )}
@@ -246,6 +295,10 @@ export function GADFormPage() {
           {currentQuestion < 7 ? (
             <Button variant="outline" onClick={handleNext} size="lg">
               {content.ui.btnNext}
+              <HugeiconsIcon
+                icon={ChevronRightIcon}
+                className="h-5 w-5 shrink-0"
+              />
             </Button>
           ) : (
             <Button onClick={handleSubmit} size="lg" disabled={loading}>

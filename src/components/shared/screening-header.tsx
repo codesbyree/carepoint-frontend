@@ -13,7 +13,7 @@ export function ScreeningHeader(props: Props) {
   const navigate = useNavigate()
 
   return (
-    <header className="fixed top-0 left-0 w-full">
+    <header className="fixed top-0 left-0 z-50 w-full">
       <div className="mx-auto flex h-16 w-full max-w-380 items-center justify-between gap-2.5 px-6 md:px-8">
         <Button
           variant="ghost"

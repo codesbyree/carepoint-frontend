@@ -1,5 +1,14 @@
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { motion } from "motion/react"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { Call } from "@hugeicons/core-free-icons"
+import { useLocation, useNavigate } from "react-router-dom"
+
+import {
+  getSeverityDetailsByML,
+  getSeverityDetailsByScore,
+} from "../utils/gad.utils"
 import { cn } from "@/lib/utils"
+import type { AssessmentResult } from "../api/gad"
 import { useLanguageStore } from "@/stores/use-language.store"
 
 import {
@@ -10,28 +19,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { buttonVariants } from "@/components/ui/button"
+import { ConsentDialog, RetakeDialogConfirmation } from "../components"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { ScreeningHeader } from "@/components/shared/screening-header"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { HugeiconsIcon } from "@hugeicons/react"
-import { Call, Download } from "@hugeicons/core-free-icons"
-import { getSeverityDetails } from "../utils/gad.utils"
-import type { AssessmentResult } from "../api/gad"
 
 export function GADResultPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const result = location.state?.result as AssessmentResult | undefined
+  const userResponses = location.state?.userResponses as number[] | undefined
 
   const lang = useLanguageStore((s) => s.language)
   const isEnglish = lang === "en"
 
-  if (!result) {
+  if (!result || !userResponses) {
     navigate("/screening/gad", { replace: true })
     return null
   }
 
-  const severity = getSeverityDetails(result.ml_predicted_severity)
+  const severityByScore = getSeverityDetailsByScore(result.total_score)
+  const severityByML = getSeverityDetailsByML(result.ml_predicted_severity)
 
   const titleText = isEnglish
     ? "Generalized Anxiety Disorder Screening Score"
@@ -41,124 +49,171 @@ export function GADResultPage() {
     <div className="min-h-dvh bg-olive-100">
       <ScreeningHeader customUrl="/screening/gad" />
 
-      <main className="flex flex-col items-center gap-5 p-6 pt-20">
-        <Card className="w-full max-w-lg">
-          <CardHeader>
-            <CardTitle className="text-lg font-semibold text-teal-900">
-              {titleText}
-            </CardTitle>
-            <CardDescription className="sr-only">{titleText}</CardDescription>
-          </CardHeader>
+      <main className="p-6 pt-20">
+        <motion.div
+          className="flex flex-col items-center gap-5"
+          transition={{
+            type: "spring",
+            bounce: 0.1, // Adds that slight, subtle iOS-style tap bounce
+            damping: 28, // Controls how fast the spring stops (prevents excessive wobble)
+            stiffness: 300, // Controls the tension and speed
+            mass: 1, // Default mass
+          }}
+          initial={{ y: 20, opacity: 0, filter: "blur(10px)" }}
+          animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+        >
+          <Card className="w-full max-w-lg">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-teal-900">
+                {titleText}
+              </CardTitle>
+              <CardDescription className="sr-only">{titleText}</CardDescription>
+            </CardHeader>
 
-          <CardContent className="flex flex-col gap-4">
-            <div className="grid grid-cols-2 gap-2">
-              <div className={cn("rounded-lg border p-2", severity.bgClass)}>
-                <p className={severity.subTextClass}>
-                  {isEnglish
-                    ? "Machine learning prediction"
-                    : "Prediksi machine learning"}
-                </p>
-                <p className={cn("text-2xl font-semibold", severity.textClass)}>
-                  {isEnglish ? severity.labelEn : severity.labelId}
-                </p>
-              </div>
+            <CardContent className="flex flex-col gap-4">
+              <div className="grid grid-cols-2 gap-2">
+                <div
+                  className={cn("rounded-lg border p-2", severityByML.bgClass)}
+                >
+                  <p className={severityByML.subTextClass}>
+                    {isEnglish
+                      ? "Machine learning prediction"
+                      : "Prediksi machine learning"}
+                  </p>
+                  <p
+                    className={cn(
+                      "text-lg font-semibold md:text-xl",
+                      severityByML.textClass
+                    )}
+                  >
+                    {isEnglish ? severityByML.labelEn : severityByML.labelId}
+                  </p>
+                </div>
 
-              <div className={cn("rounded-lg border p-2", severity.bgClass)}>
-                <p className={severity.subTextClass}>
-                  {isEnglish
-                    ? "Machine Learning confidence"
-                    : "Tingkat kepercayaan prediksi"}
-                </p>
-                <p className={cn("text-2xl font-semibold", severity.textClass)}>
-                  {(result.ml_confidence * 100).toFixed(0)}%
-                </p>
-              </div>
+                <div
+                  className={cn("rounded-lg border p-2", severityByML.bgClass)}
+                >
+                  <p className={severityByML.subTextClass}>
+                    {isEnglish
+                      ? "Machine Learning confidence"
+                      : "Tingkat kepercayaan prediksi"}
+                  </p>
+                  <p
+                    className={cn(
+                      "text-lg font-semibold md:text-xl",
+                      severityByML.textClass
+                    )}
+                  >
+                    {(result.ml_confidence * 100).toFixed(0)}%
+                  </p>
+                </div>
 
-              <div
-                className={cn(
-                  "col-span-2 rounded-lg border p-2",
-                  severity.bgClass
-                )}
-              >
-                <p className={severity.subTextClass}>
-                  {isEnglish ? "GAD-7 Score" : "Skor GAD-7"}
-                </p>
-                <p className={cn("text-3xl font-semibold", severity.textClass)}>
-                  {result.total_score}
-                </p>
-              </div>
-            </div>
-
-            <p className="text-base text-olive-600">
-              {isEnglish ? severity.mainTextEn : severity.mainTextId}
-            </p>
-            <p className="text-base text-olive-600">
-              {isEnglish ? severity.subTextEn : severity.subTextId}
-            </p>
-
-            <Alert className="mt-2 text-base">
-              <HugeiconsIcon icon={Call} className="h-5 w-5" />
-
-              <AlertTitle className="mb-0">
-                {isEnglish ? "Book a consultation" : "Jadwalkan konsultasi"}
-              </AlertTitle>
-              <AlertDescription>
-                <p className="mt-1 flex-1">
-                  {isEnglish
-                    ? "A session with one of our campus psychologists can help you understand what you're experiencing and explore options."
-                    : "Sesi dengan salah satu psikolog kampus kami dapat membantu Anda memahami apa yang sedang Anda rasakan dan mengeksplorasi berbagai pilihan yang ada."}
-                </p>
-
-                <a
-                  href="https://wa.me/6282215057531"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div
                   className={cn(
-                    buttonVariants({ variant: "outline", size: "sm" }),
-                    "mt-4 flex w-max items-center gap-2"
+                    "rounded-lg border p-2",
+                    severityByScore.bgClass
                   )}
                 >
-                  <HugeiconsIcon icon={Call} className="h-4 w-4" />
-                  {isEnglish ? "Consult now" : "Konsultasi sekarang"}
-                </a>
-              </AlertDescription>
-            </Alert>
-          </CardContent>
+                  <p className={severityByScore.subTextClass}>
+                    {isEnglish ? "GAD-7 Score" : "Skor GAD-7"}
+                  </p>
+                  <p
+                    className={cn(
+                      "text-lg font-semibold md:text-xl",
+                      severityByScore.textClass
+                    )}
+                  >
+                    {result.total_score}
+                  </p>
+                </div>
 
-          <CardFooter className="flex flex-wrap justify-end gap-2">
-            <Button
-              size="lg"
-              variant="outline"
-              className="flex items-center gap-2"
-            >
-              {isEnglish ? "Save screening result" : "Simpan hasil skrining"}
-              <HugeiconsIcon icon={Download} className="h-5 w-5" />
-            </Button>
+                <div
+                  className={cn(
+                    "rounded-lg border p-2",
+                    severityByScore.bgClass
+                  )}
+                >
+                  <p className={severityByScore.subTextClass}>
+                    {isEnglish ? "Screening result" : "Hasil skrining"}
+                  </p>
+                  <p
+                    className={cn(
+                      "text-lg font-semibold md:text-xl",
+                      severityByScore.textClass
+                    )}
+                  >
+                    {isEnglish
+                      ? severityByScore.labelEn
+                      : severityByScore.labelId}
+                  </p>
+                </div>
+              </div>
 
-            <Link
-              to="/screening/gad/form"
-              className={cn(buttonVariants({ variant: "default", size: "lg" }))}
-            >
-              {isEnglish ? "Retake test" : "Ulangi tes"}
-            </Link>
-          </CardFooter>
-        </Card>
+              <p className="text-base text-olive-600">
+                {isEnglish
+                  ? severityByScore.mainTextEn
+                  : severityByScore.mainTextId}
+              </p>
+              <p className="text-base text-olive-600">
+                {isEnglish
+                  ? severityByScore.subTextEn
+                  : severityByScore.subTextId}
+              </p>
 
-        <span className="block text-center text-sm text-olive-600">
-          {isEnglish ? (
-            <>
-              Your results can be saved privately to your device. <br />
-              We do not save or share your results with your faculty or
-              university.
-            </>
-          ) : (
-            <>
-              Hasil ini dapat disimpan secara privat di perangkat Anda. <br />
-              Kami tidak menyimpan atau membagikan hasil Anda kepada fakultas
-              atau pihak kampus.
-            </>
-          )}
-        </span>
+              <Alert className="mt-2 text-base">
+                <HugeiconsIcon icon={Call} className="h-5 w-5" />
+
+                <AlertTitle className="mb-0">
+                  {isEnglish ? "Book a consultation" : "Jadwalkan konsultasi"}
+                </AlertTitle>
+                <AlertDescription>
+                  <p className="mt-1 flex-1">
+                    {isEnglish
+                      ? "A session with one of our campus psychologists can help you understand what you're experiencing and explore options."
+                      : "Sesi dengan salah satu psikolog kampus kami dapat membantu Anda memahami apa yang sedang Anda rasakan dan mengeksplorasi berbagai pilihan yang ada."}
+                  </p>
+
+                  <a
+                    href="https://wa.me/6282215057531"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" }),
+                      "mt-4 flex w-max items-center gap-2"
+                    )}
+                  >
+                    <HugeiconsIcon icon={Call} className="h-4 w-4" />
+                    {isEnglish ? "Consult now" : "Konsultasi sekarang"}
+                  </a>
+                </AlertDescription>
+              </Alert>
+            </CardContent>
+
+            <CardFooter className="flex flex-wrap justify-end gap-2">
+              <ConsentDialog
+                assessmentResult={result}
+                userResponses={userResponses}
+              />
+              <RetakeDialogConfirmation />
+            </CardFooter>
+          </Card>
+
+          <span className="block text-center text-sm text-olive-600">
+            {isEnglish ? (
+              <>
+                Your results can be saved privately to your device. <br />
+                We do not save or share your results with your faculty or
+                university.
+              </>
+            ) : (
+              <>
+                Hasil ini dapat disimpan secara privat di perangkat Anda. <br />
+                Kami tidak menyimpan atau membagikan hasil Anda kepada fakultas
+                atau pihak kampus.
+              </>
+            )}
+          </span>
+        </motion.div>
       </main>
     </div>
   )
