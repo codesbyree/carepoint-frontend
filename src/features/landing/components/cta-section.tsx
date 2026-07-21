@@ -1,5 +1,5 @@
 import { useLanguageStore } from "@/stores/use-language.store"
-import { Button } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
   SectionHeader,
   SectionHeaderDescription,
@@ -13,6 +13,7 @@ import CtaCoverDesktop from "@/assets/landing/cta cover desktop.webp"
 import CtaCoverTablet from "@/assets/landing/cta cover tablet.webp"
 import CtaCoverMobile from "@/assets/landing/cta cover mobile.webp"
 import { SectionSafeWrapper } from "./section-safe-wrapper"
+import { cn } from "@/lib/utils"
 
 const content = {
   id: {
@@ -76,10 +77,18 @@ export function CtaSection() {
             </SectionHeader>
 
             <div className="mt-2 flex w-full flex-col items-center gap-3 sm:flex-row sm:justify-center">
-              <Button className="w-max px-5" size="lg" variant="outline">
-                <HugeiconsIcon icon={Call02Icon} className="h-4.5 w-4.5" />
+              <a
+                href="https://wa.me/6282215057531"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "flex w-max items-center gap-2 no-underline!"
+                )}
+              >
+                <HugeiconsIcon icon={Call02Icon} className="h-4 w-4" />
                 {t.secondaryCta}
-              </Button>
+              </a>
             </div>
           </div>
         </div>

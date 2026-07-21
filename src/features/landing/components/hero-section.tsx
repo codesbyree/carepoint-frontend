@@ -2,7 +2,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 import { Call02Icon, LockKeyhole } from "@hugeicons/core-free-icons"
 
 import { Badge } from "@/components/ui/badge"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 
 import HeroImageDesktop from "@/assets/landing/hero image desktop.jpg"
 import HeroImageTablet from "@/assets/landing/hero image tablet.jpg"
@@ -70,10 +70,18 @@ export function HeroSection() {
                 {isEnglish ? "Start GAD-7 screening" : "Mulai skrining GAD-7"}
               </Link>
 
-              <Button className="w-max px-5" size="lg" variant="outline">
-                <HugeiconsIcon icon={Call02Icon} className="h-4.5 w-4.5" />
+              <a
+                href="https://wa.me/6282215057531"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "flex w-max items-center gap-2 no-underline!"
+                )}
+              >
+                <HugeiconsIcon icon={Call02Icon} className="h-4 w-4" />
                 {isEnglish ? "Book an appointment" : "Buat janji temu"}
-              </Button>
+              </a>
             </div>
           </div>
 
