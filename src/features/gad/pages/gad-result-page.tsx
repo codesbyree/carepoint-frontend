@@ -168,9 +168,14 @@ export function GADResultPage() {
                 </AlertTitle>
                 <AlertDescription>
                   <p className="mt-1 flex-1">
+                    <strong className="mb-1 block text-sm font-semibold text-red-600">
+                      {isEnglish
+                        ? "• Exclusive for Nusa Putra University students"
+                        : "• Khusus untuk mahasiswa Universitas Nusa Putra"}
+                    </strong>
                     {isEnglish
                       ? "A session with one of our campus psychologists can help you understand what you're experiencing and explore options."
-                      : "Sesi dengan salah satu psikolog kampus kami dapat membantu Anda memahami apa yang sedang Anda rasakan dan mengeksplorasi berbagai pilihan yang ada."}
+                      : "Sesi bersama psikolog kampus dapat membantu Anda memahami diri dan menemukan solusi."}
                   </p>
 
                   <a
@@ -179,11 +184,43 @@ export function GADResultPage() {
                     rel="noopener noreferrer"
                     className={cn(
                       buttonVariants({ variant: "outline", size: "sm" }),
-                      "mt-4 flex w-max items-center gap-2"
+                      "mt-4 flex w-max items-center gap-2 no-underline!"
                     )}
                   >
                     <HugeiconsIcon icon={Call} className="h-4 w-4" />
-                    {isEnglish ? "Consult now" : "Konsultasi sekarang"}
+                    {isEnglish
+                      ? "Consult now (WhatsApp)"
+                      : "Konsultasi sekarang (WhatsApp)"}
+                  </a>
+                </AlertDescription>
+              </Alert>
+
+              <Alert className="text-base">
+                <HugeiconsIcon icon={Call} className="h-5 w-5" />
+
+                <AlertTitle className="mb-0">
+                  {isEnglish
+                    ? "Indonesia National Mental Health Helpline"
+                    : "Layanan Hotline Kesehatan Jiwa Nasional"}
+                </AlertTitle>
+                <AlertDescription>
+                  <p className="mt-1 flex-1">
+                    {isEnglish
+                      ? "Access free, confidential psychological support provided by the government via hotline 119 ext. 8."
+                      : "Layanan dukungan psikologis gratis dan rahasia dari pemerintah melalui hotline 119 ext. 8."}
+                  </p>
+
+                  <a
+                    href="tel:119,8"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "sm" }),
+                      "mt-4 flex w-max items-center gap-2 no-underline!"
+                    )}
+                  >
+                    <HugeiconsIcon icon={Call} className="h-4 w-4" />
+                    {isEnglish
+                      ? "Call now (Phone)"
+                      : "Hubungi sekarang (Telp.)"}
                   </a>
                 </AlertDescription>
               </Alert>
