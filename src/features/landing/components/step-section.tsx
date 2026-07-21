@@ -10,9 +10,9 @@ import StepOneBadge from "@/assets/landing/list item 1.svg"
 import StepTwoBadge from "@/assets/landing/list item 2.svg"
 import StepThreeBadge from "@/assets/landing/list item 3.svg"
 
-import StepCoverDesktop from "@/assets/landing/step cover desktop.jpg"
-import StepCoverTablet from "@/assets/landing/strep cover tablet.jpg"
-import StepCoverMobile from "@/assets/landing/step cover mobile.jpg"
+import StepCoverDesktop from "@/assets/landing/step cover desktop.webp"
+import StepCoverTablet from "@/assets/landing/strep cover tablet.webp"
+import StepCoverMobile from "@/assets/landing/step cover mobile.webp"
 
 const content = {
   id: {

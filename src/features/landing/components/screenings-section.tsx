@@ -14,12 +14,12 @@ import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Badge } from "@/components/ui/badge"
 
 import DekoDesktop from "@/assets/landing/tools section deco desktop.svg"
-import AnxietyCover from "@/assets/landing/anxiety cover.jpg"
-import DepressionCover from "@/assets/landing/depression cover.jpg"
-import StressCover from "@/assets/landing/stress cover.jpg"
-import WHOCover from "@/assets/landing/wellbeing cover.jpg"
-import PSQICover from "@/assets/landing/sleep cover.jpg"
-import MBICover from "@/assets/landing/burnout cover.jpg"
+import AnxietyCover from "@/assets/landing/anxiety cover.webp"
+import DepressionCover from "@/assets/landing/depression cover.webp"
+import StressCover from "@/assets/landing/stress cover.webp"
+import WHOCover from "@/assets/landing/wellbeing cover.webp"
+import PSQICover from "@/assets/landing/sleep cover.webp"
+import MBICover from "@/assets/landing/burnout cover.webp"
 
 const screenings = {
   id: [

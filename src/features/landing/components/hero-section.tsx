@@ -4,9 +4,9 @@ import { Call02Icon, LockKeyhole } from "@hugeicons/core-free-icons"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 
-import HeroImageDesktop from "@/assets/landing/hero image desktop.jpg"
-import HeroImageTablet from "@/assets/landing/hero image tablet.jpg"
-import HeroImageMobile from "@/assets/landing/hero image mobile.jpg"
+import HeroImageDesktop from "@/assets/landing/hero image desktop.webp"
+import HeroImageTablet from "@/assets/landing/hero image tablet.webp"
+import HeroImageMobile from "@/assets/landing/hero image mobile.webp"
 import { SectionSafeWrapper } from "./section-safe-wrapper"
 
 import { useLanguageStore } from "@/stores/use-language.store"
