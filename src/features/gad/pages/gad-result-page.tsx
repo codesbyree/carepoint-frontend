@@ -160,7 +160,13 @@ export function GADResultPage() {
                   : severityByScore.subTextId}
               </p>
 
-              <Alert className="mt-2 text-base">
+              <Alert
+                className={cn(
+                  "mt-2 hidden text-base",
+                  ["Moderate", "Severe"].includes(result.rule_based_severity) &&
+                    "grid"
+                )}
+              >
                 <HugeiconsIcon icon={Call} className="h-5 w-5" />
 
                 <AlertTitle className="mb-0">
@@ -195,7 +201,12 @@ export function GADResultPage() {
                 </AlertDescription>
               </Alert>
 
-              <Alert className="text-base">
+              <Alert
+                className={cn(
+                  "hidden text-base",
+                  result.rule_based_severity === "Severe" && "grid"
+                )}
+              >
                 <HugeiconsIcon icon={Call} className="h-5 w-5" />
 
                 <AlertTitle className="mb-0">

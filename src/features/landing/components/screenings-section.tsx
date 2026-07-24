@@ -167,7 +167,7 @@ export function ScreeningsSection() {
                     !s.active && "pointer-events-none opacity-60"
                   )}
                 >
-                  {isEnglish ? "Take the test" : "Ambil tes"}
+                  {isEnglish ? "Take the screening" : "Ambil skrining"}
                 </Link>
               </div>
             </article>

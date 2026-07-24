@@ -13,10 +13,6 @@ import { LanguageSwitcher } from "@/components/shared/language-switcher"
 const NAV_LINKS = [
   { href: "#", label: { id: "Beranda", en: "Home" } },
   { href: "#about", label: { id: "Tentang", en: "About" } },
-  {
-    href: "#featured-screening",
-    label: { id: "Skrining Unggulan", en: "Featured Screening" },
-  },
   { href: "#screenings", label: { id: "Skrining", en: "Screenings" } },
   { href: "#faq", label: { id: "FAQ", en: "FAQ" } },
 ]
@@ -25,7 +21,7 @@ function NavLinks() {
   const language = useLanguageStore((s) => s.language)
 
   return (
-    <ul className="flex items-center 2xl:gap-4 2xl:pr-8">
+    <ul className="flex items-center xl:gap-8 2xl:gap-10 2xl:pr-8">
       {NAV_LINKS.map(({ href, label }) => (
         <li key={href}>
           <a href={href} className={cn(buttonVariants({ variant: "ghost" }))}>

@@ -3,7 +3,6 @@ import {
   CtaSection,
   StepsSection,
   ScreeningsSection,
-  FeaturedScreeningSection,
   Navigation,
   AboutSection,
   FAQSection,
@@ -18,9 +17,8 @@ export function LandingPage() {
       <main>
         <HeroSection />
         <AboutSection />
-        <FeaturedScreeningSection />
-        <ScreeningsSection />
         <StepsSection />
+        <ScreeningsSection />
         <FAQSection />
         <CtaSection />
       </main>

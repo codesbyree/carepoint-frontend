@@ -75,8 +75,8 @@ export function FooterSection() {
         <div className="grid grid-cols-1 gap-16 xl:grid-cols-[1fr_350px]">
           <p className="text-olive-50">
             {isEnglish
-              ? "© CarePoint NPU. All rights reserved."
-              : "© CarePoint NPU. Hak cipta dilindungi undang-undang."}
+              ? "© CarePoint. All rights reserved."
+              : "© CarePoint. Hak cipta dilindungi undang-undang."}
           </p>
 
           <ul className="flex flex-col justify-between gap-4 md:flex-row md:gap-9 xl:gap-16">

@@ -11,7 +11,6 @@ import { SectionSafeWrapper } from "./section-safe-wrapper"
 
 import { useLanguageStore } from "@/stores/use-language.store"
 import { cn } from "@/lib/utils"
-import { Link } from "react-router-dom"
 
 export function HeroSection() {
   const language = useLanguageStore((s) => s.language)
@@ -60,15 +59,15 @@ export function HeroSection() {
             </div>
 
             <div className="flex flex-col gap-2.5 md:flex-row">
-              <Link
-                to="/screening/gad"
+              <a
+                href="#screenings"
                 className={cn(
-                  buttonVariants({ variant: "default", size: "lg" }),
-                  "w-max px-5"
+                  buttonVariants({ size: "lg" }),
+                  "flex w-max items-center gap-2 no-underline!"
                 )}
               >
-                {isEnglish ? "Start GAD-7 screening" : "Mulai skrining GAD-7"}
-              </Link>
+                {isEnglish ? "See all screening" : "Lihat semua skrining"}
+              </a>
 
               <a
                 href="https://wa.me/6282215057531"

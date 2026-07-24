@@ -55,9 +55,7 @@ export function AboutSection() {
         : "Kesimpulan yang dikonfirmasi secara klinis",
     },
     {
-      feature: isEnglish
-        ? "Next step if positive"
-        : "Langkah selanjutnya jika positif",
+      feature: isEnglish ? "Next step" : "Langkah selanjutnya",
       screening: isEnglish
         ? "Consult a professional"
         : "Konsultasi dengan profesional",
