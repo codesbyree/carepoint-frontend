@@ -124,9 +124,31 @@ export function ConsentDialog(props: ConsentFormProps) {
                     disabled={isExporting}
                   />
                   <FieldLabel htmlFor="agreement">
-                    {isEnglish
-                      ? "I confirm I will not use this screening result for any malicious act, and understand it is not a clinical diagnosis."
-                      : "Saya menyatakan tidak akan menggunakan hasil skrining ini untuk tindakan yang merugikan, dan memahami bahwa ini bukan merupakan diagnosis klinis."}
+                    {isEnglish ? (
+                      <span>
+                        I agree to the{" "}
+                        <a
+                          href="/terms-and-conditions.pdf"
+                          target="_blank"
+                          className="text-blue-500 visited:text-purple-700"
+                        >
+                          terms and condition
+                        </a>{" "}
+                        for using the screening result.
+                      </span>
+                    ) : (
+                      <span>
+                        Saya menyetujui{" "}
+                        <a
+                          href="/terms-and-conditions.pdf"
+                          target="_blank"
+                          className="text-blue-500 visited:text-purple-700"
+                        >
+                          syarat dan ketentuan
+                        </a>{" "}
+                        penggunaan hasil skrining ini.
+                      </span>
+                    )}
                   </FieldLabel>
                 </Field>
               </FieldGroup>
