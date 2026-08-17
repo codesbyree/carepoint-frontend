@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from "axios"
+import { getGAD7Classification } from "./api.utils"
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string
 
@@ -78,10 +79,8 @@ export async function submitAssessment(
   payload: GAD7Submission
 ): Promise<AssessmentResult> {
   try {
-    const { data } = await apiClient.post<AssessmentResult>(
-      "/api/v1/assessment/submit",
-      payload
-    )
+    const data = getGAD7Classification(payload)
+
     return data
   } catch (err) {
     throw toApiError(err)
